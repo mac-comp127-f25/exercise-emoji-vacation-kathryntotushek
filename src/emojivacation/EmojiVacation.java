@@ -43,19 +43,23 @@ public class EmojiVacation {
 
         addCloudRows(canvas);
 
-        // TODO: [Instructions step 2] Create mountains 50% of the time.
-        //       You should randomly determine the size and number of layers
-        //       (within reasonable constraints).
+        if (Math.random() <= 0.5) {
+            addMountains(canvas, 400, randomDouble(100, 200), randomInt(1, 4));
+        }
 
         addGround(canvas, 400);
 
-        // TODO: [Instructions step 2] Create forests 60% of the time. You should randomly
-        //       determine the count for the number of trees. Pick reasonable values for
-        //       other parameters.
+        if (Math.random() <= 0.6) {
+            addForest(canvas, 375, randomDouble(30, 50), randomInt(15, 30));
+        }
 
         List<GraphicsGroup> family = createFamily(2, 3);
         positionFamily(family, 60, 550, 20);
-        // TODO: [Instructions step 4] Add each emoji in the list to the canvas
+
+        for (int i = 0; i < family.size(); i++){
+            canvas.add(family.get(i));
+        }
+
     }
 
     // –––––– Emoji family –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
@@ -69,6 +73,9 @@ public class EmojiVacation {
         //
         // Hint: You can't use List.of() to do this, because you don't know the size of the
         // resulting list before the code actually runs. What can you use?
+
+        //List<GraphicsGroup> adultList(int adultCount))
+
         //
         return List.of(
             createRandomEmoji(adultSize),
@@ -76,22 +83,40 @@ public class EmojiVacation {
     }
 
     private static GraphicsGroup createRandomEmoji(double size) {
-        // TODO: [Instructions step 7] Change this so that instead of always creating a smiley face,
-        //       it randomly selects one of the many available emojis.
-        //
-        // Hint: You can use chained if/else conditionals: with a certain probability, return emoji
-        // type A, else with some other probability return emoji type B, else with a certain
-        // probability ... etc ... else return a smiley by default.
-        //
+
+        double randomNumber = Math.random();
+
+        if (randomNumber <= 0.2) {
+            return ProvidedEmojis.createContentedFace(size);
+        }
+        else if (randomNumber > 0.2 && randomNumber <= 0.4) {
+            return ProvidedEmojis.createFrownyFace(size);
+        }
+        else if (randomNumber > 0.4 && randomNumber <= 0.6) {
+            return ProvidedEmojis.createNauseousFace(size);
+        }
+        else if (randomNumber > 0.6 && randomNumber <= 0.8) {
+            return ProvidedEmojis.createSmileyFace(size);
+        }
+        else if (randomNumber > 0.8 && randomNumber <= 0.99) {
+            return ProvidedEmojis.createWinkingFace(size);
+        }
+
         return ProvidedEmojis.createSmileyFace(size);
     }
 
     private static void positionFamily(
             List<GraphicsGroup> family,
             double leftX,
-            double baselineY,
-            double spacing
+            double baselineY,// = (family.get(i)).getHeight(),
+            double spacing// = (family.get(i)).getWidth();
+
     ) {
+        
+        /*for (int i = 0; i < family.size(); i++) {
+                (family.get(i)).setPosition(leftX, baselineY);
+
+            }*/
         // TODO: [Instructions step 5] Iterate over the emojis in the list,
         //       and position them all in a neat row
 
