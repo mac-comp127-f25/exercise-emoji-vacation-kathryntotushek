@@ -32,10 +32,14 @@ public class EmojiVacation {
     }
 
     private static void doSlideShow(CanvasWindow canvas) {
-        // f: [Instructions step 8] Change this to an actual slideshow
-        generateVacationPhoto(canvas);
         
-        
+        while (true) {
+            canvas.removeAll();
+            generateVacationPhoto(canvas);
+            canvas.draw();
+            canvas.pause(3000);
+            
+        }
         
     }
 
@@ -53,7 +57,7 @@ public class EmojiVacation {
         addGround(canvas, 400);
 
         if (Math.random() <= 0.6) {
-            addForest(canvas, 375, randomDouble(30, 50), randomInt(15, 30));
+            addForest(canvas, 400, randomDouble(30, 50), randomInt(15, 30));
         }
 
         List<GraphicsGroup> family = createFamily(2, 3);
@@ -111,7 +115,7 @@ public class EmojiVacation {
 
     private static void positionFamily(List<GraphicsGroup> family, double leftX, double baselineY, double spacing) {
 
-        for (int i = 0; i < family.size(); i++){
+        for (int i = 0; i < family.size(); i++) {
             family.get(i).setPosition(leftX, baselineY - family.get(i).getHeight());
             leftX += family.get(i).getWidth() + spacing;
         }
