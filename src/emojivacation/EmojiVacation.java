@@ -32,8 +32,11 @@ public class EmojiVacation {
     }
 
     private static void doSlideShow(CanvasWindow canvas) {
-        // TODO: [Instructions step 8] Change this to an actual slideshow
+        // f: [Instructions step 8] Change this to an actual slideshow
         generateVacationPhoto(canvas);
+        
+        
+        
     }
 
     private static void generateVacationPhoto(CanvasWindow canvas) {
@@ -67,19 +70,20 @@ public class EmojiVacation {
     private static List<GraphicsGroup> createFamily(int adultCount, int childCount) {
         double adultSize = 160, childSize = 90;
 
-        // TODO: [Instructions step 6] Change this so that instead of always creating one adult
-        //       and one child, it instead creates a list containing adultCount adults,
-        //       and childCount children.
-        //
-        // Hint: You can't use List.of() to do this, because you don't know the size of the
-        // resulting list before the code actually runs. What can you use?
+        int adultNum = adultCount;
+        int childNum = childCount;
 
-        //List<GraphicsGroup> adultList(int adultCount))
+        List<GraphicsGroup> emojiList = new ArrayList<>();
 
-        //
-        return List.of(
-            createRandomEmoji(adultSize),
-            createRandomEmoji(childSize));
+        for (int i = 0; i < adultNum; i++){
+            emojiList.add(createRandomEmoji(adultSize));
+        }
+
+        for (int i = 0; i < childNum; i++){
+            emojiList.add(createRandomEmoji(childSize));
+        }
+        
+        return emojiList;
     }
 
     private static GraphicsGroup createRandomEmoji(double size) {
@@ -105,29 +109,15 @@ public class EmojiVacation {
         return ProvidedEmojis.createSmileyFace(size);
     }
 
-    private static void positionFamily(
-            List<GraphicsGroup> family,
-            double leftX,
-            double baselineY,// = (family.get(i)).getHeight(),
-            double spacing// = (family.get(i)).getWidth();
+    private static void positionFamily(List<GraphicsGroup> family, double leftX, double baselineY, double spacing) {
 
-    ) {
+        for (int i = 0; i < family.size(); i++){
+            family.get(i).setPosition(leftX, baselineY - family.get(i).getHeight());
+            leftX += family.get(i).getWidth() + spacing;
+        }
+
+    }    
         
-        /*for (int i = 0; i < family.size(); i++) {
-                (family.get(i)).setPosition(leftX, baselineY);
-
-            }*/
-        // TODO: [Instructions step 5] Iterate over the emojis in the list,
-        //       and position them all in a neat row
-
-        // The leftmost emoji’s left edge should be at leftX, and spacing is the number of pixels that should be between
-        // each emoji and the next. But how to you space them if the kids and adults have different widths? (Hint: you
-        // can ask any graphics object for its width.)
-        //
-        // The bottom of each emoji should be baselineY. But setPosition() sets the _top_! How do you set the bottom to
-        // a given position? (Hint: you can ask any graphics object for its height.)
-    }
-
     // –––––– Scenery ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
     /**
